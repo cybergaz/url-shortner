@@ -1,0 +1,13 @@
+
+services:
+  pgdb:
+    image: postgres:latest
+    container_name: pgdb
+    environment:
+      POSTGRES_DB: cybergaz
+      POSTGRES_USER: gaz
+      POSTGRES_PASSWORD: cybergaz
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
