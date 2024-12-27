@@ -1,5 +1,6 @@
 import "dotenv/config"
 import { google } from 'googleapis';
+import jwt from 'jsonwebtoken';
 
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.REDIRECT_URI) {
     console.error("Missing environment variables for Google OAuth2");
@@ -51,5 +52,9 @@ const getUserInfo = async (idToken: string) => {
     }
 }
 
-export { oauthClient, getConsentUrl, getTokens, getNewIdToken, getUserInfo };
+const generateJWT = (payload: { id: string, email: string }) => {
+    return jwt.sign(payload, process.env.JWT_SECRET!);
+}
+
+export { oauthClient, getConsentUrl, getTokens, getNewIdToken, getUserInfo, generateJWT };
 

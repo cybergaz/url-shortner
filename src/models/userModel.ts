@@ -1,4 +1,4 @@
-import { integer, pgTable, serial, text } from "drizzle-orm/pg-core";
+import { integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { db } from "../config/database";
 import { eq } from "drizzle-orm";
 
@@ -7,6 +7,7 @@ const users = pgTable("users", {
     email: text("email").notNull().unique(),
     name: text("name"),
     refresh_token: text("refresh_token"),
+    created_at: timestamp('created_at').defaultNow(),
 });
 
 const createUser = async (email: string, name?: string, refresh_token?: string) => {

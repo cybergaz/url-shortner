@@ -2,9 +2,8 @@ import "dotenv/config"
 import { Request, Response } from 'express';
 import { google } from 'googleapis';
 import open from 'open';
-import { getConsentUrl, getTokens, getUserInfo } from "../services/authService";
+import { generateJWT, getConsentUrl, getTokens, getUserInfo } from "../services/authService";
 import { createUser } from "../models/userModel";
-
 
 const handleLogin = async (req: Request, res: Response) => {
     const consentUrl = getConsentUrl();
@@ -41,9 +40,28 @@ const handleGoogleCallback = async (req: Request, res: Response) => {
         else {
             console.log('[SERVER.AUTH] Logged-in User Info:', data);
             createUser(data.email!, data.name, refreshToken)
+            const jwtToken = generateJWT({ id: data.userId!, email: data.email! })
+
+            res.status(201).send(
+                `
+                <html>
+                <head>
+                    <title>Authentication Successful</title>
+                </head>
+                <body>
+                    <h1>${'Authentication successful ✔️'}</h1>
+                    <h3>${'Copy your JWT token and use it as a Bearer for short & analytics APIs.'}</h3>
+                    <p>Your JWT Token: <strong>${jwtToken}</strong></p>
+                </body>
+                </html>
+                `
+            )
         }
 
-        res.send('Authentication successful ✔️ , you can now close this tab.');
+        // res.status(201).send({
+        //     message: 'Authentication successful ✔️ , copy your JWT token and use it as a Bearer for short & analytics APIs.',
+        //     jwtToken: generateJWT({ id: data.userId!, email: data.email! })
+        // })
 
     } catch (error) {
         console.error('[SERVER.AUTH] Error exchanging code for tokens:', error);
