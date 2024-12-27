@@ -1,0 +1,1 @@
+ALTER TABLE "url_analytics" ADD COLUMN "clicks_by_date" jsonb;

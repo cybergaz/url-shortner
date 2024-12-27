@@ -1,0 +1,1 @@
+ALTER TABLE "url_analytics" DROP COLUMN "clicks_by_date";

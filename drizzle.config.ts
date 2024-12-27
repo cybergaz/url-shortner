@@ -10,5 +10,5 @@ export default defineConfig({
         password: "cybergaz",
         database: "cybergaz",
     },
-    schema: ["./src/models/userModel.ts"]
+    schema: ["./src/models/*"]
 })
