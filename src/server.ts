@@ -4,6 +4,8 @@ import { users, createUser, findUserByEmail } from './models/userModel';
 import cors from 'cors';
 import 'dotenv/config';
 import authRoutes from './routes/authRoutes';
+import urlRoutes from './routes/urlRoutes';
+import { shortUrls } from './models/urlModel';
 
 const app = express();
 const PORT = process.env.SERVER_PORT || 3000;
@@ -19,18 +21,15 @@ app.get('/', (req, res) => {
 // initialize the auth routes
 app.use('/auth', authRoutes);
 
+app.use('/api', urlRoutes)
+
 
 const initiateServer = async () => {
     try {
 
-        // console.table(await db`SELECT * FROM polls`)
-        // const user = await createUser("testmalio@gmail.com")
-        // if (user) {
-        //     console.log("[DATABASE] Registered User: ", user)
-        // }
-        //
-        const data = await db.select().from(users)
-        console.table(data)
+        // printing table's initial state
+        console.table(await db.select().from(users))
+        console.table(await db.select().from(shortUrls))
 
         app.listen(PORT, () => {
             console.log(`[SERVER] Server Running on http://localhost:${PORT}`);

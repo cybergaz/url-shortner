@@ -25,6 +25,7 @@
         "drizzle-orm": "^0.38.2",
         "googleapis": "^144.0.0",
         "jsonwebtoken": "^9.0.2",
+        "nanoid": "^5.0.9",
         "open": "^10.1.0",
         "postgres": "^3.4.5"
     }

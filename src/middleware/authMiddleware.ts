@@ -5,24 +5,27 @@ import jwt from 'jsonwebtoken';
 const secretKey = process.env.JWT_SECRET || 'cybergaz';
 
 const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers['authorization'];
+    const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-        return res.status(401).json({ message: 'Unauthorized: No token provided' });
+        res.status(401).json({ message: 'Unauthorized: No token provided, please login "/auth/login"' });
+        return
     }
 
     const token = authHeader.split(' ')[1]; // Extract token from "Bearer <token>"
 
     if (!token) {
-        return res.status(401).json({ message: 'Unauthorized: Token not found' });
+        res.status(401).json({ message: 'Unauthorized: Token not found in the header' });
+        return
     }
 
-    jwt.verify(token, secretKey, (err, user) => {
+    jwt.verify(token, secretKey, (err, decoded) => {
         if (err) {
-            return res.status(403).json({ message: 'Unauthorized: Invalid token' });
+            res.status(403).json({ message: 'Unauthorized: Invalid token, please re-login to create a new one' });
+            return;
         }
-
-        // req.user = user;
+        // Attach the decoded payload to the request
+        req.user = decoded;
         next(); // Proceed to the next middleware or route handler
     });
 };
