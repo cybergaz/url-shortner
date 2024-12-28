@@ -18,10 +18,10 @@ type ShortUrlResult =
     | { success: true, message: string }
     | { success: false, error: string };
 
-type CommonResult = {
-    success: boolean,
-    message: string,
-    data?: any
+type CommonResult<T = any> = {
+    success: boolean;
+    message: string;
+    data?: T;
 };
 
 export { ShortenUrlRequest, ShortUrlResult, CommonResult };

@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { db } from '../config/database';
 import { CommonResult, ShortUrlResult } from '../types/types';
 import { eq } from 'drizzle-orm';
+import { handleRateLimit, updateRateLimit } from '../services/ratelimit';
 
 
 // Short URLs Table
@@ -22,16 +23,22 @@ const rateLimits = pgTable('rate_limits', {
     user_id: integer('user_id').references(() => users.id, { onDelete: 'cascade' }),
     url_creation_count: integer('url_creation_count').default(0),
     last_reset: timestamp('last_reset').defaultNow(),
-    reset_interval: varchar('reset_interval', { length: 50 }).default('1 day'),
+    // reset_interval: varchar('reset_interval', { length: 50 }).default('1 day'),
 });
 
 
 const createShortUrl = async (user_id: number, long_url: string, topic?: string): Promise<CommonResult> => {
     try {
-        // Check if the long URL already exists in the database
-        // const url_exists = await db.$count(shortUrls, eq(shortUrls.long_url, long_url)) > 0;
-        const existing_urls = await db.select().from(shortUrls).where(eq(shortUrls.long_url, long_url));
 
+        const results = await handleRateLimit(user_id)
+
+        if (!results.success) {
+            console.log(results.message)
+            return { success: false, message: results.message };
+        }
+        // Check if the long URL already exists in the database
+        const existing_urls = await db.select().from(shortUrls).where(eq(shortUrls.long_url, long_url));
+        // const url_exists = await db.$count(shortUrls, eq(shortUrls.long_url, long_url)) > 0;
         if (existing_urls.length > 0) {
             console.log("[DATABASE] Aborting Query. URL already shortened ✖️")
             return {
@@ -44,6 +51,9 @@ const createShortUrl = async (user_id: number, long_url: string, topic?: string)
         // If not found, create a new short URL
         const randomId = nanoid(6);
         const data_inseted = await db.insert(shortUrls).values({ short_url: randomId, long_url, topic, user_id }).returning();
+        // increment the rate limit counter
+        // await db.update(rateLimits).set({ url_creation_count: rateLimit[0].url_creation_count! + 1 }).where(eq(rateLimits.user_id, user_id));
+        await updateRateLimit(user_id, results.data);
 
         let message: string;
         if (topic)
