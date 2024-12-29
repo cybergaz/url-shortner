@@ -1,9 +1,8 @@
 import "dotenv/config"
 import { Request, Response } from 'express';
-import { google } from 'googleapis';
 import open from 'open';
 import { generateJWT, getConsentUrl, getTokens, getUserInfo } from "../services/authService";
-import { createUser } from "../models/userModel";
+import { createUser } from "../services/userService";
 
 const handleLogin = async (req: Request, res: Response) => {
     const consentUrl = getConsentUrl();

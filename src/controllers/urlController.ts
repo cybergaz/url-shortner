@@ -1,9 +1,10 @@
 import "dotenv/config"
 import { Request, Response } from 'express';
 import { ShortenUrlRequest } from '../types/types';
-import { findUserByEmail, getUserId } from "../models/userModel";
-import { createAliasedShortUrl, createShortUrl, shortUrls } from "../models/urlModel";
-
+import { getUserId } from "../services/userService";
+import { createAliasedShortUrl, createShortUrl, findLongUrl } from "../services/urlService";
+import { createLogs, fetchGeoLocation } from "../services/analytics";
+import { UAParser } from 'ua-parser-js';
 
 const handleShort = async (req: Request<{}, {}, ShortenUrlRequest>, res: Response) => {
     const user = req.user as { email?: string }; // Type-casting the payload
@@ -64,6 +65,40 @@ const handleShort = async (req: Request<{}, {}, ShortenUrlRequest>, res: Respons
 }
 
 const handleShortRedirect = async (req: Request, res: Response) => {
+    try {
+        const alias = req.params.alias
+        if (!alias) {
+            res.status(400).json({ message: "no alias provided in the params" })
+        }
+
+        const results = await findLongUrl(alias)
+        if (!results.success) {
+            res.status(400).json({ message: results.message })
+            return;
+        }
+
+        const ip = req.ip!
+        const userAgent = req.headers['user-agent'] || "Unknown User-Agent";
+        const short_url_id = results.data?.short_url_id!
+        // const { browser, cpu, device, os } = UAParser(userAgent);
+        // Fetch geolocation data using an API
+        // const geolocation = await fetchGeoLocation(ip);
+
+        // Log the details
+        console.log(`[Redirect Log]`, {
+            userAgent,
+            ip,
+        });
+
+        await createLogs(ip, userAgent, short_url_id)
+
+        res.redirect(results.data?.long_url!)
+        console.log("[SERVER] redirecting user to :", results.data)
+    }
+    catch (error) {
+        console.error("[SERVER] Error Occured while processing long url:", error)
+        res.status(500).json({ message: "An internal error occurred" });
+    }
 }
 
 export { handleShort, handleShortRedirect };
