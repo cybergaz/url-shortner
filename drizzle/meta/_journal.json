@@ -5,36 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1735130939235,
-      "tag": "0000_solid_lifeguard",
+      "when": 1735506566832,
+      "tag": "0000_smiling_meltdown",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1735252604854,
-      "tag": "0001_romantic_red_shift",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1735321820595,
-      "tag": "0002_flippant_natasha_romanoff",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1735322122833,
-      "tag": "0003_narrow_reaper",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1735322129890,
-      "tag": "0004_strong_power_pack",
+      "when": 1735506572448,
+      "tag": "0001_melodic_rick_jones",
       "breakpoints": true
     }
   ]

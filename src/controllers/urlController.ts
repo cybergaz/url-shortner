@@ -4,11 +4,11 @@ import { ShortenUrlRequest } from '../types/types';
 import { getUserId } from "../services/userService";
 import { createAliasedShortUrl, createShortUrl, findLongUrl } from "../services/urlService";
 import { createLogs, fetchGeoLocation } from "../services/analytics";
-import { UAParser } from 'ua-parser-js';
 
 const handleShort = async (req: Request<{}, {}, ShortenUrlRequest>, res: Response) => {
     const user = req.user as { email?: string }; // Type-casting the payload
     const userEmail = user?.email;
+    // console.log("[SERVER] User Email:", userEmail)
     if (!userEmail) {
         res.status(400).json({ message: 'User email not found in token' });
         return;
@@ -79,18 +79,17 @@ const handleShortRedirect = async (req: Request, res: Response) => {
 
         const ip = req.ip!
         const userAgent = req.headers['user-agent'] || "Unknown User-Agent";
-        const short_url_id = results.data?.short_url_id!
         // const { browser, cpu, device, os } = UAParser(userAgent);
         // Fetch geolocation data using an API
         // const geolocation = await fetchGeoLocation(ip);
 
         // Log the details
-        console.log(`[Redirect Log]`, {
-            userAgent,
-            ip,
-        });
+        // console.log(`[Redirect Log]`, {
+        //     userAgent,
+        //     ip,
+        // });
 
-        await createLogs(ip, userAgent, short_url_id)
+        await createLogs(ip, userAgent, alias)
 
         res.redirect(results.data?.long_url!)
         console.log("[SERVER] redirecting user to :", results.data)

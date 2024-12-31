@@ -8,7 +8,7 @@ const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-        res.status(401).json({ message: 'Unauthorized: No token provided, please login "/auth/login"' });
+        res.status(401).json({ message: 'Unauthorized: No token provided, please provide your JWT token in the header, login again to regenerate /auth/login' });
         return
     }
 

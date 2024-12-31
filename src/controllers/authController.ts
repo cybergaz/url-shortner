@@ -7,12 +7,13 @@ import { createUser } from "../services/userService";
 const handleLogin = async (req: Request, res: Response) => {
     const consentUrl = getConsentUrl();
 
-    open(consentUrl).then(() => {
-        console.log('[SERVER.AUTH] Opened browser for Google Sign-In. Complete the process there.');
-    });
+    // open(consentUrl).then(() => {
+    //     console.log('[SERVER.AUTH] Opened browser for Google Sign-In. Complete the process there.');
+    // });
 
-    console.log('[SERVER.AUTH] if the browser window does not appear, visit the following link: "', consentUrl, '"');
-    res.send('Opened browser for Google Sign-In. Complete the process there.\nOR\nvisit the following link: "' + consentUrl + '"');
+    console.log('[SERVER.AUTH] if you made request from curl or postman, visit the following link in browser: "', consentUrl, '"');
+    // res.send('Opened browser for Google Sign-In. Complete the process there.\nOR\nvisit the following link: "' + consentUrl + '"');
+    res.redirect(consentUrl)
 }
 
 const handleGoogleCallback = async (req: Request, res: Response) => {
