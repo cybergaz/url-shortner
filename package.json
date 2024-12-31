@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "src/server.js",
     "scripts": {
-        "dev": "npx tsx src/server.ts"
+        "dev": "npx tsx src/server.ts",
+        "test": "npx jest"
     },
     "keywords": [],
     "author": "cybergaz",
