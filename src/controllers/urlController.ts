@@ -4,6 +4,7 @@ import { ShortenUrlRequest } from '../types/types';
 import { getUserId } from "../services/userService";
 import { createAliasedShortUrl, createShortUrl, findLongUrl } from "../services/urlService";
 import { createLogs, fetchGeoLocation } from "../services/analytics";
+import { redis } from "../config/redis";
 
 const handleShort = async (req: Request<{}, {}, ShortenUrlRequest>, res: Response) => {
     const user = req.user as { email?: string }; // Type-casting the payload
@@ -45,7 +46,7 @@ const handleShort = async (req: Request<{}, {}, ShortenUrlRequest>, res: Respons
         // shortening logic
         const results_n = await createShortUrl(user_id, longUrl, topic)
         if (!results_n.success) {
-            res.status(400).json({ message: results_n.message });
+            res.status(429).json({ message: results_n.message });
             return;
         }
         // on successfull creation of short url
@@ -71,28 +72,33 @@ const handleShortRedirect = async (req: Request, res: Response) => {
             res.status(400).json({ message: "no alias provided in the params" })
         }
 
-        const results = await findLongUrl(alias)
-        if (!results.success) {
-            res.status(400).json({ message: results.message })
-            return;
-        }
-
         const ip = req.ip!
         const userAgent = req.headers['user-agent'] || "Unknown User-Agent";
-        // const { browser, cpu, device, os } = UAParser(userAgent);
-        // Fetch geolocation data using an API
-        // const geolocation = await fetchGeoLocation(ip);
 
-        // Log the details
-        // console.log(`[Redirect Log]`, {
-        //     userAgent,
-        //     ip,
-        // });
+        let long_url: string;
+        const redis_lookup = await redis.get(alias)
+
+        if (redis_lookup) {
+            long_url = redis_lookup
+            console.log("[SERVER] Found in Redis Cache, skipping Database Lookup")
+        }
+        else {
+            console.log("[SERVER] Not Found in Redis Cache, Fetching from Database")
+            const results = await findLongUrl(alias)
+            if (!results.success) {
+                res.status(404).json({ message: results.message })
+                return;
+            }
+
+            long_url = results.data?.long_url!
+            // update redis entries
+            await redis.set(alias, long_url)
+        }
 
         await createLogs(ip, userAgent, alias)
 
-        res.redirect(results.data?.long_url!)
-        console.log("[SERVER] redirecting user to :", results.data)
+        res.redirect(long_url)
+        console.log("[SERVER] redirecting user to :", long_url)
     }
     catch (error) {
         console.error("[SERVER] Error Occured while processing long url:", error)

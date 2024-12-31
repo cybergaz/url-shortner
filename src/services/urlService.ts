@@ -4,6 +4,7 @@ import { CommonResult } from '../types/types';
 import { eq } from 'drizzle-orm';
 import { handleRateLimit, updateRateLimit } from '../services/ratelimit';
 import { shortUrls } from '../models/urlModel';
+import { redis } from "../config/redis"
 
 const createShortUrl = async (user_id: number, long_url: string, topic?: string): Promise<CommonResult> => {
     try {
@@ -29,7 +30,7 @@ const createShortUrl = async (user_id: number, long_url: string, topic?: string)
 
         // If not found, create a new short URL
         const randomId = nanoid(6);
-        const data_inseted = await db.insert(shortUrls).values({ short_url: randomId, long_url, topic, user_id }).returning();
+        const data_inseted = await db.insert(shortUrls).values({ user_id, long_url, short_url: randomId, topic }).returning();
         // increment the rate limit counter
         await updateRateLimit(user_id, results.data);
 

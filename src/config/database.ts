@@ -13,9 +13,9 @@ const db_connect = () => {
             username: process.env.POSTGRES_USER || "gaz",
             port: process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT, 10) : 5432,
             password: process.env.POSTGRES_PASSWORD || "cybergaz",
-            // debug: function(_, query) {
-            //     console.log("[DATABASE] EXECUTED QUERY:", query);
-            // },
+            debug: function(_, query) {
+                console.log("[DATABASE] EXECUTED QUERY:", query);
+            },
         });
 
         // console.log("process.env.POSTGRES_URL", process.env.POSTGRES_HOST);
