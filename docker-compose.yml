@@ -16,7 +16,7 @@ services:
     image: redis:latest
     container_name: redis
     environment:
-      REDIS_HOST: localhost
+      REDIS_HOST: redis
       REDIS_PORT: 6379
     ports:
       - '6379:6379'
@@ -25,15 +25,16 @@ services:
     build:
       dockerfile: Dockerfile
     container_name: server
-    command: npx drizzle-kit generate && npx drizzle-kit migrate && npm run dev
+    command: npm run dev
     ports:
       - "3000:3000"
     environment:
       SERVER_PORT: 3000
-      POSTGRES_HOST: localhost
+      POSTGRES_HOST: pgdb
       POSTGRES_USER: gaz
       POSTGRES_DB: cybergaz
       POSTGRES_PASSWORD: cybergaz
       POSTGRES_PORT: 5432
     depends_on:
       - pgdb
+      - redis
