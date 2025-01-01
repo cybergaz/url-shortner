@@ -80,7 +80,7 @@ A robust URL shortener service that allows users to create short links, track an
 ### **1. Google Login**
 
 - **Endpoint:** `/auth/login`
-    >> use this endpoint to in the browser.
+     > use this endpoint to in the browser.
 - **Method:** `GET`
 - **Response:** Redirects to Google OAuth login page.
 
