@@ -80,7 +80,7 @@ A robust URL shortener service that allows users to create short links, track an
 ### **1. Google Login**
 
 - **Endpoint:** `/auth/login`
-> use this endpoint to in the browser.
+    > use this endpoint to in the browser.
 - **Method:** `GET`
 - **Response:** Redirects to Google OAuth login page.
 
@@ -130,24 +130,24 @@ A robust URL shortener service that allows users to create short links, track an
     * **alias**: The custom alias of the short URL.
 
 - **Response**:
-```json
-    {
-        "totalClicks": 100,
-        "uniqueUsers": 80,
-        "clicksByDate": [
-            { "date": "2025-01-01", "clicks": 20 },
-            { "date": "2025-01-02", "clicks": 30 }
-        ],
-        "osType": [
-            { "osName": "Windows", "uniqueClicks": 50, "uniqueUsers": 40 },
-            { "osName": "macOS", "uniqueClicks": 20, "uniqueUsers": 15 }
-        ],
-        "deviceType": [
-            { "deviceName": "mobile", "uniqueClicks": 70, "uniqueUsers": 60 },
-            { "deviceName": "desktop", "uniqueClicks": 30, "uniqueUsers": 20 }
-        ]
-    }
-```
+    ```json
+        {
+            "totalClicks": 100,
+            "uniqueUsers": 80,
+            "clicksByDate": [
+                { "date": "2025-01-01", "clicks": 20 },
+                { "date": "2025-01-02", "clicks": 30 }
+            ],
+            "osType": [
+                { "osName": "Windows", "uniqueClicks": 50, "uniqueUsers": 40 },
+                { "osName": "macOS", "uniqueClicks": 20, "uniqueUsers": 15 }
+            ],
+            "deviceType": [
+                { "deviceName": "mobile", "uniqueClicks": 70, "uniqueUsers": 60 },
+                { "deviceName": "desktop", "uniqueClicks": 30, "uniqueUsers": 20 }
+            ]
+        }
+    ```
 
 ### 5. Get Topic-Based Analytics
 
@@ -161,28 +161,28 @@ A robust URL shortener service that allows users to create short links, track an
     * **topic**: The topic under which the URLs are grouped.
 
 - **Response**:
-```json
-{
-    "totalClicks": 500,
-    "uniqueUsers": 300,
-    "clicksByDate": [
-        { "date": "2025-01-01", "clicks": 100 },
-        { "date": "2025-01-02", "clicks": 150 }
-    ],
-    "urls": [
-        {
-            "shortUrl": "short-alias",
-            "totalClicks": 200,
-            "uniqueUsers": 150
-        },
-        {
-            "shortUrl": "short-alias",
-            "totalClicks": 300,
-            "uniqueUsers": 200
-        }
-    ]
-}
-```
+    ```json
+    {
+        "totalClicks": 500,
+        "uniqueUsers": 300,
+        "clicksByDate": [
+            { "date": "2025-01-01", "clicks": 100 },
+            { "date": "2025-01-02", "clicks": 150 }
+        ],
+        "urls": [
+            {
+                "shortUrl": "short-alias",
+                "totalClicks": 200,
+                "uniqueUsers": 150
+            },
+            {
+                "shortUrl": "short-alias",
+                "totalClicks": 300,
+                "uniqueUsers": 200
+            }
+        ]
+    }
+    ```
 
 ### 6. Get Overall Analytics
 
@@ -193,21 +193,22 @@ A robust URL shortener service that allows users to create short links, track an
     * **Authorization:** `Bearer <JWT_TOKEN>` **(Required)**
 
 - #### Response:
-```json
-{
-    "totalUrls": 10,
-    "totalClicks": 2000,
-    "uniqueUsers": 1000,
-    "clicksByDate": [
-        { "date": "2025-01-01", "clicks": 400 },
-        { "date": "2025-01-02", "clicks": 600 }
-    ],
-    "osType": [
-        { "osName": "Linux", "uniqueClicks": 1000, "uniqueUsers": 800 },
-        { "osName": "iOS", "uniqueClicks": 600, "uniqueUsers": 400 }
-    ],
-    "deviceType": [
-        { "deviceName": "tablet", "uniqueClicks": 500, "uniqueUsers": 300 },
-        { "deviceName": "desktop", "uniqueClicks": 1500, "uniqueUsers": 700 }
-    ]
-}
+    ```json
+    {
+        "totalUrls": 10,
+        "totalClicks": 2000,
+        "uniqueUsers": 1000,
+        "clicksByDate": [
+            { "date": "2025-01-01", "clicks": 400 },
+            { "date": "2025-01-02", "clicks": 600 }
+        ],
+        "osType": [
+            { "osName": "Linux", "uniqueClicks": 1000, "uniqueUsers": 800 },
+            { "osName": "iOS", "uniqueClicks": 600, "uniqueUsers": 400 }
+        ],
+        "deviceType": [
+            { "deviceName": "tablet", "uniqueClicks": 500, "uniqueUsers": 300 },
+            { "deviceName": "desktop", "uniqueClicks": 1500, "uniqueUsers": 700 }
+        ]
+    }
+    ```
