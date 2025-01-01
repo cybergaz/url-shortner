@@ -9,11 +9,23 @@ A robust URL shortener service that allows users to create short links, track an
 - Comprehensive overall analytics for user performance.
 - Google OAuth integration for secure login.
 
+## Techlogies Used
+
+- **TypeScript**: for a type-safe codebase.
+- **Express.js**: web application framework.
+- **PostgreSQL**: relational database.
+- **Redis**: in-memory data store.
+- **Drizzle**: ORM for PostgreSQL.
+- **Node.js**: runtime environment.
+- **Google OAuth**: for user authentication.
+- **JWT**: for secure authentication.
+- **Jest**: testing framework.
+- **Swagger**: for API documentation.
+
 ---
 
 ## Table of Contents
 1. [Installation](#installation)
-2. [Configuration](#configuration)
 3. [Usage](#usage)
 4. [API Documentation](#api-documentation)
     - [Google Login API](#google-login-api)
@@ -23,40 +35,51 @@ A robust URL shortener service that allows users to create short links, track an
     - [Get Topic-Based Analytics API](#get-topic-based-analytics-api)
     - [Get Overall Analytics API](#get-overall-analytics-api)
 5. [Testing](#testing)
-6. [License](#license)
 
 ---
 
 ## Installation
+
+### Requirements
+- Docker
 
 1. Clone the repository:
     ```bash
     git clone https://github.com/your-username/url-shortener.git
     cd url-shortener
     ```
-2. Install dependencies:
+2. Run Docker Compose
     ```bash
-    npm install
+    docker compose up --build
     ```
-3. Set up the environment variables by creating a `.env` file in the root directory:
+3. Set up the environment variables by creating a `.env` , check the `.env.example` file for reference.
     ```env
-    DATABASE_URL=<your-database-url>
     GOOGLE_CLIENT_ID=<your-google-client-id>
     GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+    REDIRECT_URI=<your-redirect-url>
     JWT_SECRET=<your-jwt-secret>
     ```
 
 ---
 
-## Configuration
+## Usage
 
-Ensure you have the following tools installed:
-- Node.js v18 or above
-- PostgreSQL or any compatible database
+1. **Login**: To begin, you must log in to the application. visit `http://localhost:3000/auth/login` in your browser.
 
-Run database migrations if needed:
-```bash
-npm run migrate
+2. **copy the token** and use it in the `Authorization` header for all subsequent API requests.
+
+2. **Subsequent Requests**: After successfull authentication, include the **JWT token** in the `Authorization` header for all subsequent API requests.
+> for example : Header : `"authorization: Bearer <JWT_TOKEN>"`
+
+
+
+## API Documentation
+- visit `http://localhost:3000/api-docs` to view the swagger API documentation.
+
+### 1. Google Login api
+
+**Endpoint:** `/auth/login`  
+**Method:** `GET`
 
 ### 3. Redirect API
 
@@ -101,6 +124,7 @@ npm run migrate
         { "deviceName": "desktop", "uniqueClicks": 30, "uniqueUsers": 20 }
     ]
 }
+```
 
 ### 5. Get Topic-Based Analytics API
 
@@ -135,6 +159,7 @@ npm run migrate
         }
     ]
 }
+```
 
 ### 6. Get Overall Analytics API
 
