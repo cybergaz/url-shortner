@@ -215,7 +215,7 @@ A robust URL shortener service that allows users to create short links, track an
 
 ---
 
-## testing
+## Testing
 ```
 npm run test
 ```
