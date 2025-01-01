@@ -48,16 +48,17 @@ A robust URL shortener service that allows users to create short links, track an
     git clone https://github.com/your-username/url-shortener.git
     cd url-shortener
     ```
-2. Run Docker Compose
-    ```bash
-    docker compose up --build
-    ```
-3. Set up the environment variables by creating a `.env` , check the `.env.example` file for reference.
+
+2. Set up the environment variables by creating a `.env` , check the `.env.example` file for reference.
     ```env
     GOOGLE_CLIENT_ID=<your-google-client-id>
     GOOGLE_CLIENT_SECRET=<your-google-client-secret>
     REDIRECT_URI=<your-redirect-url>
     JWT_SECRET=<your-jwt-secret>
+    ```
+3. Run Docker Compose
+    ```bash
+    docker compose up --build
     ```
 
 ---
@@ -76,10 +77,35 @@ A robust URL shortener service that allows users to create short links, track an
 ## API Documentation
 - visit `http://localhost:3000/api-docs` to view the swagger API documentation.
 
-### 1. Google Login api
+### **1. Google Login**
 
-**Endpoint:** `/auth/login`  
-**Method:** `GET`
+- **Endpoint:** `/auth/login`  
+- **Method:** `GET`
+
+#### **2. Create a short url**
+- **Endpoint**: `POST /polls`
+- **Request Body**:
+
+  ```json
+  {
+    "longUrl": "What is your favorite movie?",
+    "customAlias" (string,optional): "A custom alias for the short URL",
+    "topic": "A category under which the short URL is grouped (e.g., acquisition, activation, retention)."
+  }
+  ```
+
+- **Response**:
+
+  ```json
+    {
+      "message": "Poll created successfully",
+      "poll": {
+        "id": 7,
+        "question": "What is your favorite question?",
+        "created_at": "2024-12-13T12:46:48.056Z"
+      }
+    }
+  ```
 
 ### 3. Redirect API
 
