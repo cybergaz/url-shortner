@@ -79,8 +79,10 @@ A robust URL shortener service that allows users to create short links, track an
 
 ### **1. Google Login**
 
-- **Endpoint:** `/auth/login`  
+- **Endpoint:** `/auth/login`
+> use this endpoint to in the browser.
 - **Method:** `GET`
+- **Response:** Redirects to Google OAuth login page.
 
 ### **2. Create Short Url**
 - **Endpoint**: `POST /polls`
@@ -110,9 +112,9 @@ A robust URL shortener service that allows users to create short links, track an
 - #### Path Parameters:
     * **alias**: The custom alias of the short URL.
 
-#### Response:
-- **301 Redirect**: Redirects to the original long URL.
-- **404 Not Found**: Alias not found.
+- #### Response:
+    * **301 Redirect**: Redirects to the original long URL.
+    * **404 Not Found**: Alias not found.
 
 ---
 
@@ -122,43 +124,43 @@ A robust URL shortener service that allows users to create short links, track an
 - **Method:** `GET`
 
 - #### Headers:
-- - **Authorization:** `[[ OPTIONAL ]] Bearer <JWT_TOKEN>`
+    * **Authorization:** `[[ OPTIONAL ]] Bearer <JWT_TOKEN>`
 
-#### Path Parameters:
-- **alias**: The custom alias of the short URL.
+- #### Path Parameters:
+    * **alias**: The custom alias of the short URL.
 
-#### Response:
+- **Response**:
 ```json
-{
-    "totalClicks": 100,
-    "uniqueUsers": 80,
-    "clicksByDate": [
-        { "date": "2025-01-01", "clicks": 20 },
-        { "date": "2025-01-02", "clicks": 30 }
-    ],
-    "osType": [
-        { "osName": "Windows", "uniqueClicks": 50, "uniqueUsers": 40 },
-        { "osName": "macOS", "uniqueClicks": 20, "uniqueUsers": 15 }
-    ],
-    "deviceType": [
-        { "deviceName": "mobile", "uniqueClicks": 70, "uniqueUsers": 60 },
-        { "deviceName": "desktop", "uniqueClicks": 30, "uniqueUsers": 20 }
-    ]
-}
+    {
+        "totalClicks": 100,
+        "uniqueUsers": 80,
+        "clicksByDate": [
+            { "date": "2025-01-01", "clicks": 20 },
+            { "date": "2025-01-02", "clicks": 30 }
+        ],
+        "osType": [
+            { "osName": "Windows", "uniqueClicks": 50, "uniqueUsers": 40 },
+            { "osName": "macOS", "uniqueClicks": 20, "uniqueUsers": 15 }
+        ],
+        "deviceType": [
+            { "deviceName": "mobile", "uniqueClicks": 70, "uniqueUsers": 60 },
+            { "deviceName": "desktop", "uniqueClicks": 30, "uniqueUsers": 20 }
+        ]
+    }
 ```
 
-### 5. Get Topic-Based Analytics API
+### 5. Get Topic-Based Analytics
 
-**Endpoint:** `/api/analytics/topic/{topic}`  
-**Method:** `GET`
+- **Endpoint:** `/api/analytics/topic/{topic}`  
+- **Method:** `GET`
 
-#### Headers:
-- **Authorization:** `Bearer <JWT_TOKEN>`
+- **Headers**:
+    * **Authorization:** `[[ OPTIONAL ]] Bearer <JWT_TOKEN>`
 
-#### Path Parameters:
-- **topic**: The topic under which the URLs are grouped.
+- **Path Parameters**:
+    * **topic**: The topic under which the URLs are grouped.
 
-#### Response:
+- **Response**:
 ```json
 {
     "totalClicks": 500,
@@ -169,12 +171,12 @@ A robust URL shortener service that allows users to create short links, track an
     ],
     "urls": [
         {
-            "shortUrl": "http://short.ly/abc123",
+            "shortUrl": "short-alias",
             "totalClicks": 200,
             "uniqueUsers": 150
         },
         {
-            "shortUrl": "http://short.ly/xyz456",
+            "shortUrl": "short-alias",
             "totalClicks": 300,
             "uniqueUsers": 200
         }
@@ -182,15 +184,15 @@ A robust URL shortener service that allows users to create short links, track an
 }
 ```
 
-### 6. Get Overall Analytics API
+### 6. Get Overall Analytics
 
-**Endpoint:** `/api/analytics/overall`  
-**Method:** `GET`
+- **Endpoint:** `/api/analytics/overall`  
+- **Method:** `GET`
 
-#### Headers:
-- **Authorization:** `Bearer <JWT_TOKEN>`
+- #### Headers:
+    * **Authorization:** `Bearer <JWT_TOKEN>` **(Required)**
 
-#### Response:
+- #### Response:
 ```json
 {
     "totalUrls": 10,
