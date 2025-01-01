@@ -4,7 +4,7 @@ import { defineConfig } from 'drizzle-kit'
 export default defineConfig({
     dialect: "postgresql",
     dbCredentials: {
-        host: "localhost",
+        host: "pgdb",
         port: 5432,
         user: "gaz",
         password: "cybergaz",

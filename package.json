@@ -4,7 +4,8 @@
     "main": "src/server.js",
     "scripts": {
         "dev": "npx tsx src/server.ts",
-        "test": "npx jest"
+        "test": "npx jest",
+        "schema": "npx drizzle-kit generate && npx drizzle-kit migrate"
     },
     "keywords": [],
     "author": "cybergaz",
