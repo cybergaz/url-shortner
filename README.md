@@ -28,9 +28,9 @@ A robust URL shortener service that allows users to create short links, track an
 1. [Installation](#installation)
 3. [Usage](#usage)
 4. [API Documentation](#api-documentation)
-    - [Google Login API](#google-login-api)
-    - [Create Short URL API](#create-short-url-api)
-    - [Redirect API](#redirect-api)
+    - [Google Login](#google-login)
+    - [Create Short URL](#create-short-url)
+    - [Redirect](#redirect)
     - [Get URL Analytics API](#get-url-analytics-api)
     - [Get Topic-Based Analytics API](#get-topic-based-analytics-api)
     - [Get Overall Analytics API](#get-overall-analytics-api)
@@ -82,38 +82,33 @@ A robust URL shortener service that allows users to create short links, track an
 - **Endpoint:** `/auth/login`  
 - **Method:** `GET`
 
-#### **2. Create a short url**
+### **2. Create Short Url**
 - **Endpoint**: `POST /polls`
 - **Request Body**:
-
   ```json
   {
-    "longUrl": "What is your favorite movie?",
-    "customAlias" (string,optional): "A custom alias for the short URL",
-    "topic": "A category under which the short URL is grouped (e.g., acquisition, activation, retention)."
+    "longUrl": "The original URL to be shortened.",
+    "customAlias": "[[ OPTIONAL ]] A custom alias for the short URL",
+    "topic": "[[ OPTIONAL ]] A category under which the short URL is grouped (e.g., acquisition, activation, retention)."
   }
   ```
 
 - **Response**:
-
   ```json
     {
-      "message": "Poll created successfully",
-      "poll": {
-        "id": 7,
-        "question": "What is your favorite question?",
-        "created_at": "2024-12-13T12:46:48.056Z"
-      }
+        "message": "success or failure of request",
+      "shortUrl": "shorted url alias",
+      "createdAt":  "date of creation"
     }
   ```
 
 ### 3. Redirect API
 
-**Endpoint:** `/api/shorten/{alias}`  
-**Method:** `GET`
+- **Endpoint:** `/api/shorten/{alias}`  
+- **Method:** `GET`
 
-#### Path Parameters:
-- **alias**: The custom alias of the short URL.
+- #### Path Parameters:
+- - **alias**: The custom alias of the short URL.
 
 #### Response:
 - **301 Redirect**: Redirects to the original long URL.
@@ -121,13 +116,13 @@ A robust URL shortener service that allows users to create short links, track an
 
 ---
 
-### 4. Get URL Analytics API
+### 4. Get URL Analytics
 
-**Endpoint:** `/api/analytics/{alias}`  
-**Method:** `GET`
+- **Endpoint:** `/api/analytics/{alias}`  
+- **Method:** `GET`
 
-#### Headers:
-- **Authorization:** `Bearer <JWT_TOKEN>`
+- #### Headers:
+- - **Authorization:** `[[ OPTIONAL ]] Bearer <JWT_TOKEN>`
 
 #### Path Parameters:
 - **alias**: The custom alias of the short URL.
