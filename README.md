@@ -85,7 +85,8 @@ A robust URL shortener service that allows users to create short links, track an
 - **Response:** Redirects to Google OAuth login page.
 
 ### **2. Create Short Url**
-- **Endpoint**: `POST /polls`
+- **Endpoint**: `/api/shorten`
+- **Method:** `POST`
 - **Request Body**:
   ```json
   {
