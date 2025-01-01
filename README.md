@@ -212,3 +212,10 @@ A robust URL shortener service that allows users to create short links, track an
         ]
     }
     ```
+
+---
+
+## testing
+```
+npm run test
+```
