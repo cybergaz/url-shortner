@@ -108,7 +108,7 @@ A robust URL shortener service that allows users to create short links, track an
 - **Method:** `GET`
 
 - #### Path Parameters:
-- - **alias**: The custom alias of the short URL.
+    * **alias**: The custom alias of the short URL.
 
 #### Response:
 - **301 Redirect**: Redirects to the original long URL.
