@@ -4,7 +4,6 @@ import { CommonResult } from '../types/types';
 import { eq } from 'drizzle-orm';
 import { handleRateLimit, updateRateLimit } from '../services/ratelimit';
 import { shortUrls } from '../models/urlModel';
-import { redis } from "../config/redis"
 
 const createShortUrl = async (user_id: number, long_url: string, topic?: string): Promise<CommonResult> => {
     try {

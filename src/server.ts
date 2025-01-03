@@ -3,6 +3,7 @@ import { db } from "./config/database"
 import { users } from './models/userModel';
 import cors from 'cors';
 import 'dotenv/config';
+import path from 'path';
 import authRoutes from './routes/authRoutes';
 import urlRoutes from './routes/urlRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
@@ -21,6 +22,7 @@ app.use(cors({ origin: '*' }));
 app.use('/auth', authRoutes);
 app.use('/api', urlRoutes)
 app.use('/api', analyticsRoutes)
+app.use("/", (req, res) => { res.sendFile(path.join(__dirname, "public", "index.html")) })
 
 // Swagger setup
 setupSwaggerDocs(app, Number(PORT));
