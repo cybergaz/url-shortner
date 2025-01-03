@@ -220,7 +220,7 @@ A robust URL shortener service that allows users to create short links, track an
 
 1. using solely **docker compose**
     - setup all the necessary environment variables in the `.env` file
-    - change the server command in `docker-compose.yml` from `command: ["sh", "-c", "npm run schema && npm run dev"]` to `command: ["sh", "-c", "npm run schema && npm run test"]`
+    - change the *services > server* **command** in `docker-compose.yml` from `command: ["sh", "-c", "npm run schema && npm run dev"]` to `command: ["sh", "-c", "npm run schema && npm run test"]`
     - then run the following command
         ```
         docker compose up --build
