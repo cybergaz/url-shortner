@@ -4,7 +4,7 @@
     "main": "src/server.js",
     "scripts": {
         "dev": "npx tsx src/server.ts",
-        "test": "npx jest",
+        "test": "npx vitest run --dir tests",
         "schema": "npx drizzle-kit generate && npx drizzle-kit migrate"
     },
     "keywords": [],
@@ -41,6 +41,7 @@
         "postgres": "^3.4.5",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^5.0.1",
-        "ua-parser-js": "^2.0.0"
+        "ua-parser-js": "^2.0.0",
+        "vitest": "^2.1.8"
     }
 }

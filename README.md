@@ -217,6 +217,20 @@ A robust URL shortener service that allows users to create short links, track an
 ---
 
 ## Testing
-```
-npm run test
-```
+
+1. using solely **docker compose**
+    - setup all the necessary environment variables in the `.env` file
+    - change the server command in `docker-compose.yml` from `command: ["sh", "-c", "npm run schema && npm run dev"]` to `command: ["sh", "-c", "npm run schema && npm run test"]
+    - then run the following command
+        ```
+        docker compose up --build
+        ```
+
+2. using docker for postgres and redis and running the server locally (seperate from docker)
+    - setup all the necessary environment variables in the `.env` file
+    - run the following command
+        ```
+        docker compose up -d postgres redis
+        npm run schema
+        npm run test
+        ```
