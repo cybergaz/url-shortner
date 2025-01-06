@@ -16,7 +16,7 @@ export default router;
 // -----------------------------------------------------------------------------------------------------
 
 export const loginDoc = {
-    'auth/login': {
+    '/auth/login': {
         get: {
             summary: "Redirect to Google OAuth consent screen for login. [[ WARN ]] This endpoint is designed to be used in the Browser's search bar.",
             description: 'This endpoint redirects the user to the Google OAuth consent screen to authenticate and authorize the application.',
