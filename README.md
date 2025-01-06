@@ -54,7 +54,7 @@ A robust URL shortener service that allows users to create short links, track an
     ```env
     GOOGLE_CLIENT_ID=<your-google-client-id>
     GOOGLE_CLIENT_SECRET=<your-google-client-secret>
-    REDIRECT_URI=<your-redirect-url> #[[ NOTE ]]: you would want to change "src/routes/authRoutes.ts" , or include '/google/callback' in the redirect url
+    REDIRECT_URI=<your-redirect-url> #[[ NOTE ]]: you would have to make changes in "src/routes/authRoutes.ts" , or include '/auth/google/callback' in the redirect url
     JWT_SECRET=<your-jwt-secret>
     ```
 3. Run Docker Compose
