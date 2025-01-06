@@ -18,11 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: '*' }));
 
+// homepage
+app.get("/", (req, res) => { res.sendFile(path.join(__dirname, "public", "index.html")) })
 // defining apis
 app.use('/auth', authRoutes);
 app.use('/api', urlRoutes)
 app.use('/api', analyticsRoutes)
-app.use("/", (req, res) => { res.sendFile(path.join(__dirname, "public", "index.html")) })
 
 // Swagger setup
 setupSwaggerDocs(app, Number(PORT));
