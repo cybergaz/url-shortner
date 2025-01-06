@@ -19,7 +19,7 @@ A robust URL shortener service that allows users to create short links, track an
 - **Node.js**: runtime environment.
 - **Google OAuth**: for user authentication.
 - **JWT**: for secure authentication.
-- **Jest**: testing framework.
+- **Vitest**: testing framework.
 - **Swagger**: for API documentation.
 
 ---
