@@ -76,7 +76,7 @@ A robust URL shortener service that allows users to create short links, track an
 
 
 ## API Documentation
-- visit `http://localhost:3000/api-docs` to view the swagger API documentation.
+- visit `http://localhost:3000/api-docs` to visit the swagger API documentation.
 
 ### **1. Google Login**
 
