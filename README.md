@@ -21,6 +21,7 @@ A robust URL shortener service that allows users to create short links, track an
 - **JWT**: for secure authentication.
 - **Vitest**: testing framework.
 - **Swagger**: for API documentation.
+- **AWS & Docker**: for hosting.
 
 ---
 
