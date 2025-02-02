@@ -14,6 +14,7 @@ export const insertDummyData = async () => {
         console.log("[TEST] Database cleaned Successfully")
 
 
+
         // inserting user data
         await createUser("testmail@gmail.com")
         await createUser("testmail1@gmail.com")
